@@ -1,6 +1,13 @@
-const express = require("express");
-const axios = require("axios");
-const path = require("path");
+import express from "express";
+import axios from "axios";
+import path from "path";
+import { fileURLToPath } from "url";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -11,10 +18,8 @@ app.use(express.json());
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-const WEATHER_KEY =
-  process.env.OPENWEATHER_KEY || "283731c5de86f1141998a9fe24c0a31d";
-const GMAPS_KEY =
-  process.env.GOOGLE_MAPS_KEY || "AIzaSyD7EGN0-2TasQzkhubeuX1J8E69IWDLQlM";
+const WEATHER_KEY = process.env.OPENWEATHER_KEY;
+const GMAPS_KEY = process.env.GOOGLE_MAPS_KEY;
 
 app.get("/", (req, res) => {
   res.render("index");
